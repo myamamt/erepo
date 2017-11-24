@@ -1,13 +1,32 @@
-version '1.0-SNAPSHOT'
+buildscript {
+    ext {
+        springBootVersion = '1.5.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
 
 apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 
+group 'erepo'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile 'com.h2database:h2:1.4.196'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
