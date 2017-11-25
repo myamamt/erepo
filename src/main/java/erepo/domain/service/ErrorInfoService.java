@@ -30,6 +30,10 @@ public class ErrorInfoService {
         return repositoryCustom.findCategoryOrderByCount();
     }
 
+    public ErrorInfo findOne(Integer id) {
+        return repository.findOne(id);
+    }
+
     public ErrorInfo save(ErrorInfo errorInfo) {
         return repository.save(errorInfo);
     }

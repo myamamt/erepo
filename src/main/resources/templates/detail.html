@@ -8,7 +8,7 @@
     <meta name="author" content=""/>
     <link rel="icon" href="/favicon.ico" th:href="@{/favicon.ico}"/>
 
-    <title>Error Repository</title>
+    <title>Error Repository | Detail</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -65,25 +65,40 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-            <section class="row text-center">
-                <div class="col-12" id="pieChart"></div>
-            </section>
-
-            <h3>Recent 10 Errors</h3>
+            <h3>Detail</h3>
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Error Message</th>
-                        <th></th>
-                    </tr>
-                    </thead>
+                <table class="table" th:if="${info}">
                     <tbody>
-                    <tr th:each="info : ${recentInfos}">
+                    <tr class="col-2">
+                        <th>ID</th>
                         <td th:text="${info.infoId}"></td>
+                    </tr>
+                    <tr>
+                        <th>URL</th>
+                        <td th:text="${info.url}"></td>
+                    </tr>
+                    <tr>
+                        <th>Message</th>
                         <td th:text="${info.message}"></td>
-                        <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
+                    </tr>
+                    <tr>
+                        <th>User Agent</th>
+                        <td th:text="${info.userAgent}"></td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td th:text="${info.date}"></td>
+                    </tr>
+                    <tr>
+                        <th>Stack Trace</th>
+                        <td>
+                            <th:block th:if="${info.stackTrace}">
+                                <th:block th:each="str, stat : ${info.stackTrace.split('\n', -1)}">
+                                    <th:block th:text="${str}"/>
+                                    <br th:if="${!stat.last}"/>
+                                </th:block>
+                            </th:block>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -96,95 +111,5 @@
 <script src="/js/jquery-3.2.1.slim.min.js" th:src="@{/js/jquery-3.2.1.slim.min.js}"></script>
 <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-<script src="/js/d3.min.js" th:src="@{/js/d3.min.js}"></script>
-<script src="/js/d3pie.min.js" th:src="@{/js/d3pie.min.js}"></script>
-<script th:inline="javascript">
-    var content = [];
-    var color = ["red", "blue", "green"];
-</script>
-<script th:each="categoryCount, stat:${categoryCounts}" th:inline="javascript">
-    var index = [[${stat.index}]];
-    content.push({
-        "label": [[${categoryCount.category}]],
-        "value": [[${categoryCount.count}]],
-        "color": color[index % color.length]
-    });
-</script>
-<script th:inline="javascript">
-    var pie = new d3pie("pieChart", {
-        "header": {
-            "title": {
-                "text": "Error Category",
-                "fontSize": 30,
-                "font": "courier"
-            },
-            "subtitle": {
-                "text": "How many errors of each category is occurring?",
-                "color": "#999999",
-                "fontSize": 9,
-                "font": "courier"
-            },
-            "location": "pie-center",
-            "titleSubtitlePadding": 10
-        },
-//        "footer": {
-//            "text": "* This was curious. We're not sure why several people regard Winnipeg as a Top 15 Fear.",
-//            "color": "#999999",
-//            "fontSize": 10,
-//            "font": "open sans",
-//            "location": "bottom-left"
-//        },
-        "size": {
-            "canvasWidth": 590,
-            "pieInnerRadius": "90%",
-            "pieOuterRadius": "70%"
-        },
-        "data": {
-            "sortOrder": "none",
-            "content": content
-        },
-        "labels": {
-            "outer": {
-                "format": "label-value1",
-                "pieDistance": 20
-            },
-            "inner": {
-                "format": "none"
-            },
-            "mainLabel": {
-                "fontSize": 11
-            },
-            "percentage": {
-                "color": "#999999",
-                "fontSize": 11,
-                "decimalPlaces": 0
-            },
-            "value": {
-                "color": "#999999",
-                "fontSize": 11
-            },
-            "lines": {
-                "enabled": true,
-                "color": "#777777"
-            },
-            "truncation": {
-                "enabled": true
-            }
-        },
-        "effects": {
-            "pullOutSegmentOnClick": {
-                "effect": "linear",
-                "speed": 400,
-                "size": 8
-            }
-        },
-        "misc": {
-            "colors": {
-                "segmentStroke": "#000000"
-            }
-        }
-    });
-</script>
-
 </body>
 </html>

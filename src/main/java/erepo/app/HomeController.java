@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +39,12 @@ public class HomeController {
         model.addAttribute("recentInfos", recentInfos);
         model.addAttribute("categoryCounts", categoryCountsWithOthers);
         return "home";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable Integer id, Model model) {
+        ErrorInfo info = errorInfoService.findOne(id);
+        model.addAttribute("info", info);
+        return "detail";
     }
 }
