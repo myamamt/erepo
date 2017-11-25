@@ -29,4 +29,8 @@ public class ErrorInfoService {
     public List<CategoryCount> findCategoryOrderByCount() {
         return repositoryCustom.findCategoryOrderByCount();
     }
+
+    public ErrorInfo save(ErrorInfo errorInfo) {
+        return repository.save(errorInfo);
+    }
 }
