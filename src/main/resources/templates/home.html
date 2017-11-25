@@ -65,27 +65,9 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-            <section class="row text-center placeholders">
+            <section class="row text-center">
                 <div class="col-12" id="pieChart"></div>
             </section>
-
-            <h3>Ranking</h3>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Error Message</th>
-                        <th>Count</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="categoryCount : ${categoryCounts}">
-                        <td th:text="${categoryCount.category}"></td>
-                        <td th:text="${categoryCount.count}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
 
             <h3>Recent 10 Errors</h3>
             <div class="table-responsive">
@@ -116,16 +98,28 @@
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/d3.min.js" th:src="@{/js/d3.min.js}"></script>
 <script src="/js/d3pie.min.js" th:src="@{/js/d3pie.min.js}"></script>
-<script>
+<script th:inline="javascript">
+    var content = [];
+    var color = ["red", "blue", "green"];
+</script>
+<script th:each="categoryCount, stat:${categoryCounts}" th:inline="javascript">
+    var index = [[${stat.index}]];
+    content.push({
+        "label": [[${categoryCount.category}]],
+        "value": [[${categoryCount.count}]],
+        "color": color[index % color.length]
+    });
+</script>
+<script th:inline="javascript">
     var pie = new d3pie("pieChart", {
         "header": {
             "title": {
-                "text": "Top 15 Fears",
-                "fontSize": 34,
+                "text": "Error Category",
+                "fontSize": 30,
                 "font": "courier"
             },
             "subtitle": {
-                "text": "What strikes the most terror in people?",
+                "text": "How many each category's errors occur?",
                 "color": "#999999",
                 "fontSize": 10,
                 "font": "courier"
@@ -133,101 +127,25 @@
             "location": "pie-center",
             "titleSubtitlePadding": 10
         },
-        "footer": {
-            "text": "* This was curious. We're not sure why several people regard Winnipeg as a Top 15 Fear.",
-            "color": "#999999",
-            "fontSize": 10,
-            "font": "open sans",
-            "location": "bottom-left"
-        },
+//        "footer": {
+//            "text": "* This was curious. We're not sure why several people regard Winnipeg as a Top 15 Fear.",
+//            "color": "#999999",
+//            "fontSize": 10,
+//            "font": "open sans",
+//            "location": "bottom-left"
+//        },
         "size": {
             "canvasWidth": 590,
-            "pieInnerRadius": "95%",
+            "pieInnerRadius": "90%",
             "pieOuterRadius": "70%"
         },
         "data": {
-            "sortOrder": "label-desc",
-            "content": [
-                {
-                    "label": "Spiders",
-                    "value": 2,
-                    "color": "#333333"
-                },
-                {
-                    "label": "Mother-in-laws",
-                    "value": 10,
-                    "color": "#444444"
-                },
-                {
-                    "label": "Sharks",
-                    "value": 8,
-                    "color": "#555555"
-                },
-                {
-                    "label": "Alien invasion",
-                    "value": 8,
-                    "color": "#666666"
-                },
-                {
-                    "label": "Learning Objective-C",
-                    "value": 5,
-                    "color": "#777777"
-                },
-                {
-                    "label": "Public speaking",
-                    "value": 3,
-                    "color": "#888888"
-                },
-                {
-                    "label": "Donald Trump",
-                    "value": 4,
-                    "color": "#999999"
-                },
-                {
-                    "label": "The Zombie Apocalypse",
-                    "value": 4,
-                    "color": "#cb2121"
-                },
-                {
-                    "label": "The City of Winnipeg *",
-                    "value": 3,
-                    "color": "#830909"
-                },
-                {
-                    "label": "IE 6",
-                    "value": 2,
-                    "color": "#923e99"
-                },
-                {
-                    "label": "Planes with/out snakes",
-                    "value": 5,
-                    "color": "#ae83d5"
-                },
-                {
-                    "label": "Off-by-one errors",
-                    "value": 3,
-                    "color": "#111111"
-                },
-                {
-                    "label": "Chickadees",
-                    "value": 4,
-                    "color": "#050505"
-                },
-                {
-                    "label": "Owning a cat",
-                    "value": 1,
-                    "color": "#646464"
-                },
-                {
-                    "label": "Canada",
-                    "value": 4,
-                    "color": "#747474"
-                }
-            ]
+            "sortOrder": "none",
+            "content": content
         },
         "labels": {
             "outer": {
-                "format": "label-percentage1",
+                "format": "label-value1",
                 "pieDistance": 20
             },
             "inner": {
@@ -242,7 +160,7 @@
                 "decimalPlaces": 0
             },
             "value": {
-                "color": "#cccc43",
+                "color": "#999999",
                 "fontSize": 11
             },
             "lines": {
