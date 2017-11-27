@@ -44,6 +44,10 @@ public class HomeController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model) {
         ErrorInfo info = errorInfoService.findOne(id);
+        int index = info.getUrl().indexOf('?');
+        if (index != -1) {
+            info.setUrl(info.getUrl().substring(0, index) + "?[query]");
+        }
         model.addAttribute("info", info);
         return "detail";
     }
