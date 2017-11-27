@@ -2,5 +2,6 @@
 .gradle/
 out/
 build/
+erepo.mv.db
 
 .DS_Store

@@ -18,7 +18,7 @@ public class ErrorInfo {
 
     private String category;
 
-    @Column(length = 1000)
+    @Lob
     private String stackTrace;
 
     private Integer lineNumber;

@@ -92,12 +92,13 @@
                     <tr>
                         <th>Stack Trace</th>
                         <td>
-                            <th:block th:if="${info.stackTrace}">
-                                <th:block th:each="str, stat : ${info.stackTrace.split('\n', -1)}">
-                                    <th:block th:text="${str}"/>
-                                    <br th:if="${!stat.last}"/>
-                                </th:block>
-                            </th:block>
+                            <pre><code th:text="${info.stackTrace}"></code></pre>
+                            <!--<th:block th:if="${info.stackTrace}">-->
+                                <!--<th:block th:each="str, stat : ${info.stackTrace.split('\n', -1)}">-->
+                                    <!--<th:block th:text="${str}"/>-->
+                                    <!--<br th:if="${!stat.last}"/>-->
+                                <!--</th:block>-->
+                            <!--</th:block>-->
                         </td>
                     </tr>
                     </tbody>
