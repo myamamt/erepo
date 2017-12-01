@@ -30,6 +30,10 @@ public class ErrorInfoService {
         return repositoryCustom.findCategoryOrderByCount();
     }
 
+    public List<ErrorInfo> findByUrlContains(String url) {
+        return repository.findByUrlContains(url);
+    }
+
     public ErrorInfo findOne(Integer id) {
         return repository.findOne(id);
     }
