@@ -45,10 +45,7 @@ public class HomeController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model) {
         ErrorInfo info = errorInfoService.findOne(id);
-        int index = info.getUrl().indexOf('?');
-        if (index != -1) {
-            info.setUrl(info.getUrl().substring(0, index) + "?[query]");
-        }
+        urlFilter(info);
         model.addAttribute("info", info);
         return "detail";
     }
@@ -56,7 +53,18 @@ public class HomeController {
     @GetMapping("/result")
     public String result(@RequestParam("url") String url, Model model) {
         model.addAttribute("url", url);
+        List<ErrorInfo> list = errorInfoService.findByUrlContains(url);
+        for (ErrorInfo info : list) {
+            urlFilter(info);
+        }
         model.addAttribute("resultInfos", errorInfoService.findByUrlContains(url));
         return "result";
+    }
+
+    private void urlFilter(ErrorInfo info) {
+        int index = info.getUrl().indexOf('?');
+        if (index != -1) {
+            info.setUrl(info.getUrl().substring(0, index) + "?[query]");
+        }
     }
 }

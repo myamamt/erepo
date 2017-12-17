@@ -19,4 +19,10 @@ public class ErrorInfoRestController {
         errorInfo.setCategory(index == -1 ? "" : errorInfo.getMessage().substring(0, index));
         return errorInfoService.save(errorInfo);
     }
+
+    @PostMapping("/remove")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer removeErrorInfo(@RequestBody ErrorInfo errorInfo) {
+        return errorInfoService.deleteByUrlAndDateAndUserAgent(errorInfo.getUrl(), errorInfo.getDate(), errorInfo.getUserAgent());
+    }
 }

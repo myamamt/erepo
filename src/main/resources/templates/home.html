@@ -35,7 +35,19 @@
     <script src="/js/d3pie.min.js" th:src="@{/js/d3pie.min.js}"></script>
     <script th:inline="javascript">
         var content = [];
-        var color = ["red", "blue", "green"];
+        var color = [
+            "#de9610",
+            "#c93a40",
+            "#0074bf",
+            "#fff001",
+            "#65ace4",
+            "#d06d8c",
+            "#a0c238",
+            "#56a764",
+            "#d16b16",
+            "#cc528b",
+            "#9460a0",
+            "#f2cf01" ];
     </script>
     <script th:each="categoryCount, stat:${categoryCounts}" th:inline="javascript">
         var index = [[${stat.index}]];
