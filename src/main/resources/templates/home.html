@@ -17,14 +17,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>Date</th>
                 <th>Error Message</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="info : ${recentInfos}">
-                <td th:text="${info.infoId}"></td>
+                <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
                 <td th:text="${info.message}"></td>
                 <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
             </tr>

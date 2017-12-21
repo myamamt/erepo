@@ -62,9 +62,13 @@ public class HomeController {
     }
 
     private void urlFilter(ErrorInfo info) {
-        int index = info.getUrl().indexOf('?');
-        if (index != -1) {
-            info.setUrl(info.getUrl().substring(0, index) + "?[query]");
-        }
+        info.setUrl(hideQuery(info.getUrl()));
+        info.setStackTrace(hideQuery(info.getStackTrace()));
+        info.setFileName(hideQuery(info.getFileName()));
+    }
+
+    private static String hideQuery(String str) {
+        if (str == null) return null;
+        return str.replaceAll("(https?:.*?\\?).+", "$1[query]");
     }
 }

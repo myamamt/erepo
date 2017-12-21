@@ -12,31 +12,39 @@
     <div class="table-responsive">
         <table class="table" th:if="${info}">
             <tbody>
-            <tr class="col-2">
-                <th>ID</th>
-                <td th:text="${info.infoId}"></td>
-            </tr>
             <tr>
                 <th>URL</th>
                 <td th:text="${info.url}"></td>
-            </tr>
-            <tr>
-                <th>Message</th>
-                <td th:text="${info.message}"></td>
-            </tr>
-            <tr>
-                <th>User Agent</th>
-                <td th:text="${info.userAgent}"></td>
             </tr>
             <tr>
                 <th>Date</th>
                 <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
             </tr>
             <tr>
+                <th>User Agent</th>
+                <td th:text="${info.userAgent}"></td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td th:text="${info.message}"></td>
+            </tr>
+            <tr th:if="${info.stackTrace != null}">
                 <th>Stack Trace</th>
                 <td>
                     <pre><code th:text="${info.stackTrace}"></code></pre>
                 </td>
+            </tr>
+            <tr th:if="${info.fileName != null}">
+                <th>File Name</th>
+                <td th:text="${info.fileName}"></td>
+            </tr>
+            <tr th:if="${info.lineNumber != null}">
+                <th>Line Number</th>
+                <td th:text="${info.lineNumber}"></td>
+            </tr>
+            <tr th:if="${info.columnNumber != null}">
+                <th>Column Number</th>
+                <td th:text="${info.columnNumber}"></td>
             </tr>
             </tbody>
         </table>
