@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Error Repository | Plugin</title>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <h3>プラグイン</h3>
+    <hr/>
+    <h4>機能</h4>
+    <ul>
+        <li>閲覧しているWebページでエラーが発生するとエラーリポジトリのサーバに自動で送信します<br/>
+            送信したエラー情報は一時的にブラウザに保存されます</li>
+        <li>アイコンをクリックするとご自身のブラウザから送信した情報の一覧を確認できます<br/>
+            一覧の[削除依頼]ボタンをクリックすることでサーバに保存されたデータごと削除することができます</li>
+    </ul>
+    <hr/>
+    <h4>収集する項目</h4>
+    <ul>
+        <li>URL</li>
+        <li>日時</li>
+        <li>ブラウザ環境</li>
+        <li>エラーメッセージ</li>
+        <li>スタックトレース</li>
+        <li>ファイル名</li>
+        <li>行番号，列番号</li>
+        <li><span class="badge badge-primary">許可時のみ</span> URLのクエリ部分(?以降の部分)</li>
+        <li><span class="badge badge-primary">許可時のみ</span> Cookie</li>
+    </ul>
+    <div>
+        ※ エラーの発生状況を再現するのに役立つかどうかで選定<br/>
+        ※ <span class="badge badge-primary">許可時のみ</span> の項目については下記
+    </div>
+    <hr/>
+    <h4>一部の項目について</h4>
+    <ul>
+        <li>URLのクエリ部分・Cookieは個人情報が含まれる可能性があるため公開しません<br/>初期設定では収集も行いません</li>
+        <li>設定画面から許可をしていただいた場合のみ、収集及びエラー状況再現を目的としたページ開発者への情報提供を行います</li>
+    </ul>
+</main>
+</body>
+</html>
