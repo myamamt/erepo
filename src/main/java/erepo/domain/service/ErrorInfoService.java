@@ -24,15 +24,19 @@ public class ErrorInfoService {
     }
 
     public List<ErrorInfo> findTop10ByOrderByDateDesc() {
-        return repository.findTop10ByOrderByDateDesc();
+        return repository.findTop10ByRemarksIsNullOrderByDateDesc();
     }
 
     public List<CategoryCount> findCategoryOrderByCount() {
         return repositoryCustom.findCategoryOrderByCount();
     }
 
-    public List<ErrorInfo> findByUrlContains(String url) {
-        return repository.findByUrlContains(url);
+    public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url) {
+        return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url);
+    }
+
+    public List<ErrorInfo> findByRemarksAndUrlContainsOrderByDateDesc(String remarks, String url) {
+        return repository.findByRemarksAndUrlContainsOrderByDateDesc(remarks, url);
     }
 
     public ErrorInfo findOne(Integer id) {

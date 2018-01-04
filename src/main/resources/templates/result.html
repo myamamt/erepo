@@ -13,7 +13,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>Date</th>
                 <th>URL</th>
                 <th>Error Message</th>
                 <th></th>
@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             <tr th:each="info : ${resultInfos}">
-                <td th:text="${info.infoId}"></td>
+                <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
                 <td th:text="${info.url}"></td>
                 <td th:text="${info.message}"></td>
                 <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>

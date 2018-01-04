@@ -53,13 +53,18 @@ public class HomeController {
     }
 
     @GetMapping("/result")
-    public String result(@RequestParam("url") String url, Model model) {
+    public String result(@RequestParam(name = "url", defaultValue = "", required = false) String url, @RequestParam(name = "group", required = false) String group, Model model) {
         model.addAttribute("url", url);
-        List<ErrorInfo> list = errorInfoService.findByUrlContains(url);
+        List<ErrorInfo> list;
+        if (group == null) {
+            list = errorInfoService.findByUrlContainsOrderByDateDesc(url);
+        } else {
+            list = errorInfoService.findByRemarksAndUrlContainsOrderByDateDesc(group, url);
+        }
         for (ErrorInfo info : list) {
             urlFilter(info);
         }
-        model.addAttribute("resultInfos", errorInfoService.findByUrlContains(url));
+        model.addAttribute("resultInfos", list);
         model.addAttribute("page", "home");
         return "result";
     }
