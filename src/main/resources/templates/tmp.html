@@ -18,7 +18,7 @@
         }
         .jumbotron {
             font-family: Montserrat, sans-serif;
-            background-color: #f4511e;
+            background-color: #444444;
             color: #fff;
             padding: 100px 25px;
         }
@@ -29,7 +29,7 @@
             padding: 60px 50px;
         }
         .logo {
-            color: #f4511e;
+            color: #444444;
             font-size: 200px;
         }
         @media screen and (max-width: 768px) {
@@ -41,7 +41,7 @@
         .navbar {
             font-family: Montserrat, sans-serif;
             margin-bottom: 0;
-            background-color: #f4511e;
+            background-color: #444444;
             z-index: 9999;
             border: 0;
             font-size: 12px !important;
@@ -55,7 +55,7 @@
         }
 
         .navbar-nav li a:hover, .navbar-nav li.active a {
-            color: #f4511e !important;
+            color: #444444 !important;
             background-color: #fff !important;
         }
 
@@ -66,7 +66,7 @@
         footer .glyphicon {
             font-size: 20px;
             margin-bottom: 20px;
-            color: #f4511e;
+            color: #444444;
         }
     </style>
 </head>
@@ -99,11 +99,12 @@
         <div class="input-group">
             <input type="email" class="form-control" size="50" placeholder="www.example.com" required>
             <div class="input-group-btn">
-                <button type="button" class="btn btn-danger">Search</button>
+                <button type="button" class="btn btn-default">Search</button>
             </div>
         </div>
     </form>
 </div>
+
 <div id="about" class="container-fluid">
     <div class="row">
         <div class="col-sm-8">
@@ -116,13 +117,14 @@
         </div>
     </div>
 </div>
+
 <div class="container-fluid bg-grey">
     <div class="row">
         <div class="col-sm-4">
             <span class="glyphicon glyphicon-time logo"></span>
         </div>
         <div class="col-sm-8">
-            <h2>Recent 10 Errors</h2>
+            <h2>Recent Errors</h2>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -138,13 +140,77 @@
                         <td>Error: error</td>
                         <td><a href="#">detail</a></td>
                     </tr>
+                    <tr>
+                        <td>2018/01/01 12:00</td>
+                        <td>Error: error</td>
+                        <td><a href="#">detail</a></td>
+                    </tr>
+                    <tr>
+                        <td>2018/01/01 12:00</td>
+                        <td>Error: error</td>
+                        <td><a href="#">detail</a></td>
+                    </tr>
+                    <tr>
+                        <td>2018/01/01 12:00</td>
+                        <td>Error: error</td>
+                        <td><a href="#">detail</a></td>
+                    </tr>
+                    <tr>
+                        <td>2018/01/01 12:00</td>
+                        <td>Error: error</td>
+                        <td><a href="#">detail</a></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<footer class="container-fluid text-center">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>Error Category</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Percent</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-list logo"></span>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid text-center bg-grey">
     <a href="#myPage" title="To Top">
         <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
