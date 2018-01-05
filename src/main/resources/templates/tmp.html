@@ -18,7 +18,7 @@
         }
         .jumbotron {
             font-family: Montserrat, sans-serif;
-            background-color: #444444;
+            background-color: #f4511e;
             color: #fff;
             padding: 100px 25px;
         }
@@ -29,7 +29,7 @@
             padding: 60px 50px;
         }
         .logo {
-            color: #444444;
+            color: #f4511e;
             font-size: 200px;
         }
         @media screen and (max-width: 768px) {
@@ -41,7 +41,7 @@
         .navbar {
             font-family: Montserrat, sans-serif;
             margin-bottom: 0;
-            background-color: #444444;
+            background-color: #f4511e;
             z-index: 9999;
             border: 0;
             font-size: 12px !important;
@@ -55,7 +55,7 @@
         }
 
         .navbar-nav li a:hover, .navbar-nav li.active a {
-            color: #444444 !important;
+            color: #f4511e !important;
             background-color: #fff !important;
         }
 
@@ -66,7 +66,20 @@
         footer .glyphicon {
             font-size: 20px;
             margin-bottom: 20px;
-            color: #444444;
+            color: #f4511e;
+        }
+
+        a:link, a:visited {
+            color: #f4511e;
+        }
+
+        a:hover {
+            color: #a52a2a;
+        }
+
+        .navbar-brand {
+            background: url("logo.png") no-repeat left center;
+            background-size: contain;
         }
     </style>
 </head>
@@ -78,15 +91,13 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Error Repository</a>
+            <a class="navbar-brand" href="#"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#about">ABOUT</a></li>
                 <li><a href="#">PLUGIN</a></li>
-                <li><a href="#">HELP</a></li>
             </ul>
         </div>
     </div>

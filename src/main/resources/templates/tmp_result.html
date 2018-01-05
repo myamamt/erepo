@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Error Repository | Plugin</title>
+    <title>Error Repository | Result</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <style>
         body {
@@ -75,6 +76,31 @@
             margin-bottom: 20px;
             color: #f4511e;
         }
+
+        .graph {
+            overflow: auto;
+            white-space: nowrap;
+        }
+
+        .bar {
+            fill: #f4511e;
+        }
+
+        .bar:hover {
+            fill: #a52a2a;
+        }
+
+        .axis--x path {
+            display: none;
+        }
+
+        a:link, a:visited {
+            color: #f4511e;
+        }
+
+        a:hover {
+            color: #a52a2a;
+        }
     </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -98,50 +124,117 @@
 </nav>
 
 <div class="jumbotron text-center">
-    <h2>Plugin</h2>
+    <h2>Result of "www.example.com"</h2>
 </div>
-
 
 <div class="container-fluid">
-    <h3>機能</h3>
-    <ul>
-        <li>閲覧しているWebページでエラーが発生するとエラーリポジトリのサーバに自動で送信します<br/>
-            送信したエラー情報は一時的にブラウザに保存されます
-        </li>
-        <li>アイコンをクリックするとご自身のブラウザから送信した情報の一覧を確認できます<br/>
-            一覧の[削除依頼]ボタンをクリックすることでサーバに保存されたデータごと削除することができます
-        </li>
-    </ul>
-</div>
-
-<div class="container-fluid bg-grey">
-    <h3>収集する項目</h3>
-    <ul>
-        <li>URL</li>
-        <li>日時</li>
-        <li>ブラウザ環境</li>
-        <li>エラーメッセージ</li>
-        <li>スタックトレース</li>
-        <li>ファイル名</li>
-        <li>行番号，列番号</li>
-        <li><span class="badge badge-primary">許可時のみ</span> URLのクエリ部分(?以降の部分)</li>
-        <li><span class="badge badge-primary">許可時のみ</span> Cookie</li>
-    </ul>
-    <div>
-        ※ エラーの発生状況を再現するのに役立つかどうかで選定<br/>
-        ※ <span class="badge badge-primary">許可時のみ</span> の項目については下記
+    <h3>エラー情報一覧</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Error Message</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2018/01/01 12:00</td>
+                <td>Error: error</td>
+                <td><a href="#">detail</a></td>
+            </tr>
+            <tr>
+                <td>2018/01/01 12:00</td>
+                <td>Error: error</td>
+                <td><a href="#">detail</a></td>
+            </tr>
+            <tr>
+                <td>2018/01/01 12:00</td>
+                <td>Error: error</td>
+                <td><a href="#">detail</a></td>
+            </tr>
+            <tr>
+                <td>2018/01/01 12:00</td>
+                <td>Error: error</td>
+                <td><a href="#">detail</a></td>
+            </tr>
+            <tr>
+                <td>2018/01/01 12:00</td>
+                <td>Error: error</td>
+                <td><a href="#">detail</a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
-<div class="container-fluid">
-    <h3>一部の項目について</h3>
-    <ul>
-        <li>URLのクエリ部分・Cookieは個人情報が含まれる可能性があるため公開しません<br/>初期設定では収集も行いません</li>
-        <li>設定画面から許可をしていただいた場合のみ、収集及びエラー状況再現を目的としたページ開発者への情報提供を行います</li>
-    </ul>
+<div class="container-fluid bg-grey">
+    <h3>最近のエラー発生数</h3>
+    <div class="text-center graph">
+        <svg width="800" height="300"></svg>
+        <script>
+
+            var svg = d3.select("svg"),
+                margin = {top: 20, right: 20, bottom: 30, left: 40},
+                width = +svg.attr("width") - margin.left - margin.right,
+                height = +svg.attr("height") - margin.top - margin.bottom;
+
+            var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+                y = d3.scaleLinear().rangeRound([height, 0]);
+
+            var g = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            var data = [];
+            for (var i = 1; i <= 30; i++) {
+                data.push({letter: i, frequency: Math.floor(Math.random() * 3)});
+            }
+
+            x.domain(data.map(function (d) {
+                return d.letter;
+            }));
+            y.domain([0, d3.max(data, function (d) {
+                return d.frequency;
+            })]);
+
+            g.append("g")
+                .attr("class", "axis axis--x")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+
+            g.append("g")
+                .attr("class", "axis axis--y")
+                .call(d3.axisLeft(y).tickFormat(function (e) {
+                    if (Math.floor(e) === e) return e;
+                }))
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", "0.71em")
+                .attr("text-anchor", "end")
+                .text("Frequency");
+
+            g.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d) {
+                    return x(d.letter);
+                })
+                .attr("y", function (d) {
+                    return y(d.frequency);
+                })
+                .attr("width", x.bandwidth())
+                .attr("height", function (d) {
+                    return height - y(d.frequency);
+                });
+
+        </script>
+    </div>
 </div>
 
-<footer class="container-fluid text-center bg-grey">
+<footer class="container-fluid text-center">
     <a href="#myPage" title="To Top">
         <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
