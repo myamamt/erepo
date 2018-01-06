@@ -1,138 +1,170 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Error Repository | Home</title>
+<title>Error Repository</title>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
+<link rel="stylesheet" th:href="@{/css/main.css}"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="icon" th:href="@{/favicon.ico}"></link>
+
 </head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<body>
-<main layout:fragment="content">
-    <section class="row text-center">
-        <div class="col-12" id="pieChart"></div>
-    </section>
-
-    <h3>Recent 10 Errors</h3>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Error Message</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="info : ${recentInfos}">
-                <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
-                <td th:text="${info.message}"></td>
-                <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
-            </tr>
-            </tbody>
-        </table>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#about">ABOUT</a></li>
+                <li><a th:href="@{/plugin}">PLUGIN</a></li>
+            </ul>
+        </div>
     </div>
-    <script src="/js/d3.min.js" th:src="@{/js/d3.min.js}"></script>
-    <script src="/js/d3pie.min.js" th:src="@{/js/d3pie.min.js}"></script>
-    <script th:inline="javascript">
-        var content = [];
-        var color = [
-            "#de9610",
-            "#c93a40",
-            "#0074bf",
-            "#fff001",
-            "#65ace4",
-            "#d06d8c",
-            "#a0c238",
-            "#56a764",
-            "#d16b16",
-            "#cc528b",
-            "#9460a0",
-            "#f2cf01" ];
-    </script>
-    <script th:each="categoryCount, stat:${categoryCounts}" th:inline="javascript">
-        var index = [[${stat.index}]];
-        content.push({
-            "label": [[${categoryCount.category}]],
-            "value": [[${categoryCount.count}]],
-            "color": color[index % color.length]
+</nav>
+
+<div class="jumbotron text-center">
+    <h1>Error Repository</h1>
+    <p>Participatory-Based Error Collection System for Web Front-End Developers</p>
+    <form class="form-inline" th:action="@{/result}">
+        <div class="input-group">
+            <input type="text" class="form-control" size="50" placeholder="www.example.com" th:name="url"></input>
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="about" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>About Error Repository</h2>
+            <h4>Lorem ipsum..</h4>
+            <p>Lorem ipsum..</p>
+        </div>
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-info-sign logo"></span>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-grey">
+    <div class="row">
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-time logo"></span>
+        </div>
+        <div class="col-sm-8">
+            <h2>Recent Errors</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Error Message</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="info : ${recentInfos}">
+                        <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
+                        <td th:text="${info.message}"></td>
+                        <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>Error Category</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Percent</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    <tr>
+                        <td>Uncaught HogeHogeError</td>
+                        <td>20% (100)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-list-alt logo"></span>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid text-center bg-grey">
+    <a href="#myPage" title="To Top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
+    <p>To Top</p>
+</footer>
+
+<script>
+    $(document).ready(function () {
+        // Add smooth scrolling to all links in navbar + footer link
+        $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+
+                // Prevent default anchor click behavior
+                event.preventDefault();
+
+                // Store hash
+                var hash = this.hash;
+
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 300, function () {
+
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            } // End if
         });
-    </script>
-    <script th:inline="javascript">
-        var pie = new d3pie("pieChart", {
-            "header": {
-                "title": {
-                    "text": "Error Category",
-                    "fontSize": 30,
-                    "font": "courier"
-                },
-                "subtitle": {
-                    "text": "How many errors of each category is occurring?",
-                    "color": "#999999",
-                    "fontSize": 9,
-                    "font": "courier"
-                },
-                "location": "pie-center",
-                "titleSubtitlePadding": 10
-            },
-//        "footer": {
-//            "text": "* This was curious. We're not sure why several people regard Winnipeg as a Top 15 Fear.",
-//            "color": "#999999",
-//            "fontSize": 10,
-//            "font": "open sans",
-//            "location": "bottom-left"
-//        },
-            "size": {
-                "canvasWidth": 590,
-                "pieInnerRadius": "90%",
-                "pieOuterRadius": "70%"
-            },
-            "data": {
-                "sortOrder": "none",
-                "content": content
-            },
-            "labels": {
-                "outer": {
-                    "format": "label-value1",
-                    "pieDistance": 20
-                },
-                "inner": {
-                    "format": "none"
-                },
-                "mainLabel": {
-                    "fontSize": 11
-                },
-                "percentage": {
-                    "color": "#999999",
-                    "fontSize": 11,
-                    "decimalPlaces": 0
-                },
-                "value": {
-                    "color": "#999999",
-                    "fontSize": 11
-                },
-                "lines": {
-                    "enabled": true,
-                    "color": "#777777"
-                },
-                "truncation": {
-                    "enabled": true
-                }
-            },
-            "effects": {
-                "pullOutSegmentOnClick": {
-                    "effect": "linear",
-                    "speed": 400,
-                    "size": 8
-                }
-            },
-            "misc": {
-                "colors": {
-                    "segmentStroke": "#000000"
-                }
-            }
-        });
-    </script>
-</main>
+    })
+</script>
 
 </body>
 </html>
