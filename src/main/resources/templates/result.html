@@ -72,29 +72,6 @@
 </div>
 
 <div class="container-fluid">
-    <h3>エラー情報一覧</h3>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Error Message</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="info : ${resultInfos}">
-                <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
-                <td th:text="${info.url}"></td>
-                <td th:text="${info.message}"></td>
-                <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="container-fluid bg-grey">
     <h3>最近のエラー発生数</h3>
     <div class="text-center graph">
         <svg width="800" height="300"></svg>
@@ -155,6 +132,29 @@
                 });
             /*]]>*/
         </script>
+    </div>
+</div>
+
+<div class="container-fluid bg-grey">
+    <h3>エラー情報一覧</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Error Message</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="info : ${resultInfos}">
+                <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="${info.url}"></td>
+                <td th:text="${info.message}"></td>
+                <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
