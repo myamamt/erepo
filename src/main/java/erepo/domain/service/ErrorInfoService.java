@@ -23,8 +23,8 @@ public class ErrorInfoService {
         this.repositoryCustom = repositoryCustom;
     }
 
-    public List<ErrorInfo> findTop10ByOrderByDateDesc() {
-        return repository.findTop10ByRemarksIsNullOrderByDateDesc();
+    public List<ErrorInfo> findTop6ByOrderByDateDesc() {
+        return repository.findTop6ByRemarksIsNullOrderByDateDesc();
     }
 
     public List<CategoryCount> findCategoryOrderByCount() {

@@ -20,7 +20,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        List<ErrorInfo> recentInfos = errorInfoService.findTop10ByOrderByDateDesc();
+        List<ErrorInfo> recentInfos = errorInfoService.findTop6ByOrderByDateDesc();
         List<CategoryCount> categoryCounts = errorInfoService.findCategoryOrderByCount();
 
         List<CategoryCount> categoryCountsWithOthers = new ArrayList<>();
