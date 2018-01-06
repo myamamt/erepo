@@ -16,7 +16,7 @@ public class ErrorInfoRepositoryCustomImpl implements ErrorInfoRepositoryCustom 
 
     @Override
     public List<CategoryCount> findCategoryOrderByCount() {
-        List<Object[]> results = entityManager.createNativeQuery("SELECT category, COUNT(category) AS cnt FROM Info GROUP BY category ORDER BY cnt DESC").getResultList();
+        List<Object[]> results = entityManager.createNativeQuery("SELECT category, COUNT(category) AS cnt FROM Info WHERE remarks IS NULL GROUP BY category ORDER BY cnt DESC").getResultList();
         List<CategoryCount> list = new ArrayList<>();
         for (Object[] result : results) {
             list.add(new CategoryCount((String) result[0], ((Number) result[1]).intValue(), ""));
