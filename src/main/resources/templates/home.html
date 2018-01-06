@@ -79,7 +79,7 @@
                     <tr th:each="info : ${recentInfos}">
                         <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
                         <td th:text="${info.message}"></td>
-                        <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">detail</a></td>
+                        <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">Detail</a></td>
                     </tr>
                     </tbody>
                 </table>
