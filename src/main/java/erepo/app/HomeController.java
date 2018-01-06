@@ -26,15 +26,17 @@ public class HomeController {
         List<CategoryCount> categoryCountsWithOthers = new ArrayList<>();
         final int allSum = categoryCounts.stream().mapToInt(c -> c.count).sum();
         int othersSum = 0;
-        for (CategoryCount categoryCount : categoryCounts) {
-            if (categoryCount.count * 100 >= allSum) {
+        for (int i = 0; i < categoryCounts.size(); i++) {
+            CategoryCount categoryCount = categoryCounts.get(i);
+            if (i < 5) {
+                categoryCount.percent = String.format("%.1f", 100.0 * categoryCount.count / allSum);
                 categoryCountsWithOthers.add(categoryCount);
             } else {
                 othersSum += categoryCount.count;
             }
         }
         if (othersSum > 0) {
-            categoryCountsWithOthers.add(new CategoryCount("others", othersSum));
+            categoryCountsWithOthers.add(new CategoryCount("others", othersSum, String.format("%.1f", 100.0 * othersSum / allSum)));
         }
 
         model.addAttribute("recentInfos", recentInfos);

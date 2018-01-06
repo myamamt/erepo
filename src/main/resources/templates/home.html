@@ -97,29 +97,13 @@
                     <thead>
                     <tr>
                         <th>Category</th>
-                        <th>Percent</th>
+                        <th class="text-right">Percent</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Uncaught HogeHogeError</td>
-                        <td>20% (100)</td>
-                    </tr>
-                    <tr>
-                        <td>Uncaught HogeHogeError</td>
-                        <td>20% (100)</td>
-                    </tr>
-                    <tr>
-                        <td>Uncaught HogeHogeError</td>
-                        <td>20% (100)</td>
-                    </tr>
-                    <tr>
-                        <td>Uncaught HogeHogeError</td>
-                        <td>20% (100)</td>
-                    </tr>
-                    <tr>
-                        <td>Uncaught HogeHogeError</td>
-                        <td>20% (100)</td>
+                    <tr th:each="categoryCount : ${categoryCounts}">
+                        <td th:text="${categoryCount.category}"></td>
+                        <td class="text-right" th:text="${categoryCount.count + ' (' + categoryCount.percent + '%)'}"></td>
                     </tr>
                     </tbody>
                 </table>
