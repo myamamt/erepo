@@ -90,6 +90,14 @@
             fill: #a52a2a;
         }
 
+        g path, g line {
+            stroke: #818181;
+        }
+
+        g text {
+            fill: #818181;
+        }
+
         .axis--x path {
             display: none;
         }
@@ -212,8 +220,7 @@
                 .attr("transform", "rotate(-90)")
                 .attr("y", 6)
                 .attr("dy", "0.71em")
-                .attr("text-anchor", "end")
-                .text("Frequency");
+                .attr("text-anchor", "end");
 
             g.selectAll(".bar")
                 .data(data)
