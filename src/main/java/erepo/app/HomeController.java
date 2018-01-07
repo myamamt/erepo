@@ -44,7 +44,6 @@ public class HomeController {
 
         model.addAttribute("recentInfos", recentInfos);
         model.addAttribute("categoryCounts", categoryCountsWithOthers);
-        model.addAttribute("page", "home");
         return "home";
     }
 
@@ -53,7 +52,6 @@ public class HomeController {
         ErrorInfo info = errorInfoService.findOne(id);
         urlFilter(info);
         model.addAttribute("info", info);
-        model.addAttribute("page", "home");
         return "detail";
     }
 
@@ -88,13 +86,11 @@ public class HomeController {
         }
         model.addAttribute("resultInfos", list);
         model.addAttribute("dateCounts", dateCounts);
-        model.addAttribute("page", "home");
         return "result";
     }
 
     @GetMapping("/plugin")
     public String plugin(Model model) {
-        model.addAttribute("page", "plugin");
         return "plugin";
     }
 

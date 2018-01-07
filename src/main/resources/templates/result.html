@@ -145,10 +145,10 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="col-2">Date</th>
-                <th class="col-4">URL</th>
-                <th class="col-5">Error Message</th>
-                <th class="col-1"></th>
+                <th>Date</th>
+                <th>URL</th>
+                <th>Error Message</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -156,10 +156,10 @@
                 <td class="text-center" colspan="3">No Data</td>
             </tr>
             <tr th:each="info : ${resultInfos}">
-                <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
-                <td th:text="${info.url}"></td>
-                <td th:text="${info.message}"></td>
-                <td><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">Detail</a></td>
+                <td class="col-md-2" th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
+                <td class="col-md-4" th:text="${info.url}"></td>
+                <td class="col-md-5" th:text="${info.message}"></td>
+                <td class="col-md-1"><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">Detail</a></td>
             </tr>
             </tbody>
         </table>
