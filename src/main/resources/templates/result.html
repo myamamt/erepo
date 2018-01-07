@@ -35,6 +35,11 @@
             fill: #a52a2a;
         }
 
+        .text {
+            fill: #f4511e;
+            font-size: 12px;
+        }
+
         g path, g line {
             stroke: #818181;
         }
@@ -138,6 +143,21 @@
                 .attr("width", x.bandwidth())
                 .attr("height", function (d) {
                     return height - y(d.frequency);
+                });
+
+            g.selectAll(".text")
+                .data(data)
+                .enter().append("text")
+                .attr("class", "text")
+                .text(function (d) {
+                    return d.frequency > 0 ? d.frequency : "";
+                })
+                .attr("text-anchor", "middle")
+                .attr("x", function (d) {
+                    return x(d.letter) + x.bandwidth() / 2;
+                })
+                .attr("y", function (d) {
+                    return y(d.frequency) - 3;
                 });
             /*]]>*/
         </script>
