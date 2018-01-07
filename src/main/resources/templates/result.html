@@ -83,9 +83,9 @@
         <script>
             var data = [];
         </script>
-        <script th:each="dateCount : ${dateCounts}" th:inline="javascript">
+        <script th:each="dateCount, stat : ${dateCounts}" th:inline="javascript">
             data.push({
-                letter: [[${dateCount.date == 1 ? (dateCount.month + '/' + dateCount.date) : dateCount.date}]],
+                letter: [[${stat.first or dateCount.date == 1 ? (dateCount.month + '/' + dateCount.date) : dateCount.date}]],
                 frequency: [[${dateCount.count}]]
             });
         </script>
