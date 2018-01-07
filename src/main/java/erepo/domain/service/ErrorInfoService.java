@@ -6,6 +6,7 @@ import erepo.domain.model.ErrorInfo;
 import erepo.domain.repository.ErrorInfoRepository;
 import erepo.domain.repository.ErrorInfoRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +37,12 @@ public class ErrorInfoService {
         return repositoryCustom.findDateCountByRemarksIsNullAndUrlContainsAndDuring25days(url);
     }
 
-    public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url) {
-        return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url);
+    public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url, Pageable pageable) {
+        return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url, pageable);
+    }
+
+    public Integer countByUrlContains(String url) {
+        return repository.countByRemarksIsNullAndUrlContains(url);
     }
 
     public ErrorInfo findOne(Integer id) {

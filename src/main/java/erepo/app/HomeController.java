@@ -5,6 +5,7 @@ import erepo.domain.model.DateCount;
 import erepo.domain.model.ErrorInfo;
 import erepo.domain.service.ErrorInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +57,7 @@ public class HomeController {
     }
 
     @GetMapping("/result")
-    public String result(@RequestParam(name = "url") String url, Model model) {
-        model.addAttribute("url", url);
-
+    public String result(@RequestParam(name = "url") String url, @RequestParam(name = "page", required = false, defaultValue = "1") int page, Model model) {
         List<DateCount> dateCountsTmp = errorInfoService.findDateCountByUrlContainsAndDuring25days(url);
         List<DateCount> dateCounts = new ArrayList<>();
         int dateCountsIndex = 0;
@@ -80,12 +79,25 @@ public class HomeController {
         }
 
         List<ErrorInfo> list;
-        list = errorInfoService.findByUrlContainsOrderByDateDesc(url);
+        list = errorInfoService.findByUrlContainsOrderByDateDesc(url, new PageRequest(page - 1, 10));
         for (ErrorInfo info : list) {
             urlFilter(info);
         }
-        model.addAttribute("resultInfos", list);
+        int sum = errorInfoService.countByUrlContains(url);
+        int maxPage = (sum + 10 - 1) / 10;
+
+        if (maxPage < page) {
+            return "redirect:/result?url=" + url;
+        }
+
+        model.addAttribute("url", url);
         model.addAttribute("dateCounts", dateCounts);
+        model.addAttribute("resultInfos", list);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("min", (page - 1) * 10 + 1);
+        model.addAttribute("max", page == maxPage ? sum : page * 10);
+        model.addAttribute("sum", sum);
         return "result";
     }
 
