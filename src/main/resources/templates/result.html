@@ -46,7 +46,7 @@
             display: none;
         }
 
-        td {
+        td.break {
             word-break: break-all;
         }
     </style>
@@ -161,8 +161,8 @@
             </tr>
             <tr th:each="info : ${resultInfos}">
                 <td class="col-md-2" th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
-                <td class="col-md-4" th:text="${info.url}"></td>
-                <td class="col-md-5" th:text="${info.message}"></td>
+                <td class="col-md-4 break" th:text="${info.url}"></td>
+                <td class="col-md-5 break" th:text="${info.message}"></td>
                 <td class="col-md-1"><a href="/detail" th:href="@{'/detail/' + ${info.infoId}}">Detail</a></td>
             </tr>
             </tbody>
