@@ -52,6 +52,10 @@
         <table class="table" th:if="${info}">
             <tbody>
             <tr>
+                <th>ID</th>
+                <td th:text="${'#' + info.infoId}"></td>
+            </tr>
+            <tr>
                 <th>URL</th>
                 <td th:text="${info.url}"></td>
             </tr>
