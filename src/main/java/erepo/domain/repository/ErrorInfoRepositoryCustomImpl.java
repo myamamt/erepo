@@ -29,8 +29,8 @@ public class ErrorInfoRepositoryCustomImpl implements ErrorInfoRepositoryCustom 
     }
 
     @Override
-    public List<DateCount> findDateCountByUrlContainsAndDuring25days(String url) {
-        Query query = entityManager.createNativeQuery("SELECT truncate(date) as d, COUNT(*) FROM Info WHERE url LIKE :url AND date >= DATEADD('DAY', -24, truncate(dateadd('HOUR', 9, current_timestamp()))) GROUP BY d ORDER BY d");
+    public List<DateCount> findDateCountByRemarksIsNullAndUrlContainsAndDuring25days(String url) {
+        Query query = entityManager.createNativeQuery("SELECT truncate(date) as d, COUNT(*) FROM Info WHERE remarks IS NULL AND url LIKE :url AND date >= DATEADD('DAY', -24, truncate(dateadd('HOUR', 9, current_timestamp()))) GROUP BY d ORDER BY d");
         query.setParameter("url", "%" + url + "%");
         List<Object[]> results = query.getResultList();
         List<DateCount> list = new ArrayList<>();

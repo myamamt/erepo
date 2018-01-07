@@ -33,7 +33,7 @@ public class ErrorInfoService {
     }
 
     public List<DateCount> findDateCountByUrlContainsAndDuring25days(String url) {
-        return repositoryCustom.findDateCountByUrlContainsAndDuring25days(url);
+        return repositoryCustom.findDateCountByRemarksIsNullAndUrlContainsAndDuring25days(url);
     }
 
     public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url) {

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ErrorInfoRepositoryCustom {
     public List<CategoryCount> findCategoryOrderByCount();
-    public List<DateCount> findDateCountByUrlContainsAndDuring25days(String url);
+    public List<DateCount> findDateCountByRemarksIsNullAndUrlContainsAndDuring25days(String url);
 }
