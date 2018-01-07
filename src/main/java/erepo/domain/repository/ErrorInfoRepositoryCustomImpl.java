@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +29,13 @@ public class ErrorInfoRepositoryCustomImpl implements ErrorInfoRepositoryCustom 
     }
 
     @Override
-    public List<DateCount> findDateCountByUrlByDuring30days(String url) {
-        List<Object[]> results = entityManager.createNativeQuery("SELECT truncate(date) as d, COUNT(*) FROM Info WHERE date >= DATEADD('DAY', -29, truncate(dateadd('HOUR', 9, current_timestamp()))) GROUP BY d ORDER BY d").getResultList();
+    public List<DateCount> findDateCountByUrlContainsAndDuring25days(String url) {
+        Query query = entityManager.createNativeQuery("SELECT truncate(date) as d, COUNT(*) FROM Info WHERE url LIKE :url AND date >= DATEADD('DAY', -24, truncate(dateadd('HOUR', 9, current_timestamp()))) GROUP BY d ORDER BY d");
+        query.setParameter("url", "%" + url + "%");
+        List<Object[]> results = query.getResultList();
         List<DateCount> list = new ArrayList<>();
         for (Object[] result : results) {
-            String dateStr = (String) result[0];
+            String dateStr = result[0].toString();
             int count = ((Number) result[1]).intValue();
 
             list.add(new DateCount(Integer.parseInt(dateStr.substring(5, 7)), Integer.parseInt(dateStr.substring(8, 10)), count));

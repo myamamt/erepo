@@ -1,6 +1,7 @@
 package erepo.domain.service;
 
 import erepo.domain.model.CategoryCount;
+import erepo.domain.model.DateCount;
 import erepo.domain.model.ErrorInfo;
 import erepo.domain.repository.ErrorInfoRepository;
 import erepo.domain.repository.ErrorInfoRepositoryCustom;
@@ -31,12 +32,12 @@ public class ErrorInfoService {
         return repositoryCustom.findCategoryOrderByCount();
     }
 
-    public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url) {
-        return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url);
+    public List<DateCount> findDateCountByUrlContainsAndDuring25days(String url) {
+        return repositoryCustom.findDateCountByUrlContainsAndDuring25days(url);
     }
 
-    public List<ErrorInfo> findByRemarksAndUrlContainsOrderByDateDesc(String remarks, String url) {
-        return repository.findByRemarksAndUrlContainsOrderByDateDesc(remarks, url);
+    public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url) {
+        return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url);
     }
 
     public ErrorInfo findOne(Integer id) {

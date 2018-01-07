@@ -75,6 +75,15 @@
     <h3>最近のエラー発生数</h3>
     <div class="text-center graph">
         <svg width="800" height="300"></svg>
+        <script>
+            var data = [];
+        </script>
+        <script th:each="dateCount : ${dateCounts}" th:inline="javascript">
+            data.push({
+                letter: [[${dateCount.date == 1 ? (dateCount.month + '/' + dateCount.date) : dateCount.date}]],
+                frequency: [[${dateCount.count}]]
+            });
+        </script>
         <script th:inline="javascript">
             /*<![CDATA[*/
             var svg = d3.select("svg"),
@@ -87,11 +96,6 @@
 
             var g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            var data = [];
-            for (var i = 1; i <= 30; i++) {
-                data.push({letter: i, frequency: Math.floor(Math.random() * 3)});
-            }
 
             x.domain(data.map(function (d) {
                 return d.letter;
@@ -147,6 +151,9 @@
             </tr>
             </thead>
             <tbody>
+            <tr th:if="${#lists.isEmpty(resultInfos)}">
+                <td class="text-center" colspan="3">No Data</td>
+            </tr>
             <tr th:each="info : ${resultInfos}">
                 <td th:text="${#dates.format(info.date, 'yyyy/MM/dd HH:mm')}"></td>
                 <td th:text="${info.url}"></td>
