@@ -86,7 +86,7 @@ public class HomeController {
         int sum = errorInfoService.countByUrlContains(url);
         int maxPage = (sum + 10 - 1) / 10;
 
-        if (maxPage < page) {
+        if (sum > 0 && maxPage < page) {
             return "redirect:/result?url=" + url;
         }
 
