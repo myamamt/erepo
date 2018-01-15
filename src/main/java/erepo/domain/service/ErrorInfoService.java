@@ -41,8 +41,16 @@ public class ErrorInfoService {
         return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url, pageable);
     }
 
+    public List<ErrorInfo> findByRemarksOrderByDateDesc(String remarks, Pageable pageable) {
+        return repository.findByRemarksOrderByDateDesc(remarks, pageable);
+    }
+
     public Integer countByUrlContains(String url) {
         return repository.countByRemarksIsNullAndUrlContains(url);
+    }
+
+    public Integer countByRemarks(String remarks) {
+        return repository.countByRemarks(remarks);
     }
 
     public ErrorInfo findOne(Integer id) {

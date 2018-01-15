@@ -87,7 +87,7 @@ public class HomeController {
         int maxPage = (sum + 10 - 1) / 10;
 
         if (sum > 0 && maxPage < page) {
-            return "redirect:/result?url=" + url;
+            return "error";
         }
 
         model.addAttribute("url", url);
@@ -99,6 +99,40 @@ public class HomeController {
         model.addAttribute("max", page == maxPage ? sum : page * 10);
         model.addAttribute("sum", sum);
         return "result";
+    }
+
+    @GetMapping("/crawl/{shortName}")
+    public String crawl(@PathVariable(name = "shortName") String shortName, @RequestParam(name = "page", required = false, defaultValue = "1") int page, Model model) {
+        if (shortName.equals("cs")) {
+            model.addAttribute("description", "Result of Computer Science International Conference");
+        } else if (shortName.equals("com")) {
+            model.addAttribute("description", "Result of Listed Enterprise in Japan");
+        } else if (shortName.equals("alexa")) {
+            model.addAttribute("description", "Result of Alexa Top 500");
+        } else {
+            return "error";
+        }
+
+        List<ErrorInfo> list;
+        list = errorInfoService.findByRemarksOrderByDateDesc(shortName, new PageRequest(page - 1, 10));
+        for (ErrorInfo info : list) {
+            urlFilter(info);
+        }
+        int sum = errorInfoService.countByRemarks(shortName);
+        int maxPage = (sum + 10 - 1) / 10;
+
+        if (sum > 0 && maxPage < page) {
+            return "redirect:/crawl/" + shortName;
+        }
+
+        model.addAttribute("shortName", shortName);
+        model.addAttribute("resultInfos", list);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("min", (page - 1) * 10 + 1);
+        model.addAttribute("max", page == maxPage ? sum : page * 10);
+        model.addAttribute("sum", sum);
+        return "crawl";
     }
 
     @GetMapping("/plugin")
