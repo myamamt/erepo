@@ -137,7 +137,7 @@ public class HomeController {
 
     @GetMapping("/plugin")
     public String plugin(Model model) {
-        return "plugin";
+        return "plugin_en";
     }
 
     private void urlFilter(ErrorInfo info) {
