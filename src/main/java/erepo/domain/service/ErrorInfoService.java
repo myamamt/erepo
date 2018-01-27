@@ -34,11 +34,11 @@ public class ErrorInfoService {
     }
 
     public List<DateCount> findDateCountByUrlContainsAndDuring25days(String url) {
-        return repositoryCustom.findDateCountByRemarksIsNullAndUrlContainsAndDuring25days(url);
+        return repositoryCustom.findDateCountByUrlContainsAndDuring25days(url);
     }
 
     public List<ErrorInfo> findByUrlContainsOrderByDateDesc(String url, Pageable pageable) {
-        return repository.findByRemarksIsNullAndUrlContainsOrderByDateDesc(url, pageable);
+        return repository.findByUrlContainsOrderByDateDesc(url, pageable);
     }
 
     public List<ErrorInfo> findByRemarksOrderByDateDesc(String remarks, Pageable pageable) {
@@ -46,7 +46,7 @@ public class ErrorInfoService {
     }
 
     public Integer countByUrlContains(String url) {
-        return repository.countByRemarksIsNullAndUrlContains(url);
+        return repository.countByUrlContains(url);
     }
 
     public Integer countByRemarks(String remarks) {
